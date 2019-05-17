@@ -5,6 +5,7 @@ TODO(prasana): DO NOT SUBMIT without a detailed description of main.
 """
 
 import sys # sys.argv
+import argparse ## for argument parsing
 '''
 import flags
 FLAGS = flags.FLAGS
@@ -25,15 +26,25 @@ def reverse_file(f):
 def revese_str(s):
 	return v
 
+## deprecated
 def help():
 	help = sys.argv[0] 
 	help += " [--help]" 
 	help += " [--factorial=nn]"
 	print_str(help)
 
+def flagHandler():
+	parser = argparse.ArgumentParser()
+	help_str = "calculate factorial"
+	parser.add_argument("factorial", type=int, help=help_str)
+	args = parser.parse_args()
+	return args
+
 def main(argv):
-	if len(argv) <= 1 or argv[1] == "--help":
-	  help()
+	cli_args=flagHandler()
+	if cli_args.factorial:
+		f=fact(cli_args.factorial)
+		print_str(str(f))
 	return
 
 ## main loop
